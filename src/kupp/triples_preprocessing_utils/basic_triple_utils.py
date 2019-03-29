@@ -17,8 +17,8 @@ def load_triples(path):
     return triples
 
 
-def create_mappings(triples: np.ndarray) -> Tuple[Dict[str, int], Dict[str, int]]:
-    """Map entiteis and relations to ids."""
+def create_entity_and_relation_mappings(triples: np.ndarray) -> Tuple[Dict[str, int], Dict[str, int]]:
+    """Map entities and relations to ids."""
     entities = np.unique(np.ndarray.flatten(np.concatenate([triples[:, 0:1], triples[:, 2:3]])))
     relations = np.unique(np.ndarray.flatten(triples[:, 1:2]).tolist())
 
@@ -34,10 +34,22 @@ def create_mappings(triples: np.ndarray) -> Tuple[Dict[str, int], Dict[str, int]
 
     return entity_to_id, rel_to_id
 
+def create_triple_mappings(triples: np.ndarray, are_triples_unique=True) -> Dict[tuple, int]:
+    """Create mappings for triples."""
 
-def map_triples_to_ids(triples: np.ndarray,
-                       entity_to_id: Optional[Dict[int, str]] = None,
-                       rel_to_id: Optional[Dict[int, str]] = None) -> np.ndarray:
+    if not are_triples_unique:
+        triples = np.unique(ar=triples, axis=0)
+
+    triples_to_id: Dict[tuple, int] = {
+        tuple(value): key
+        for key, value in enumerate(triples)
+    }
+
+    return triples_to_id
+
+def map_triples_elements_to_ids(triples: np.ndarray,
+                                entity_to_id: Optional[Dict[int, str]] = None,
+                                rel_to_id: Optional[Dict[int, str]] = None) -> np.ndarray:
     """Mapp entites and relations to predefined ids."""
 
     subject_column = np.vectorize(entity_to_id.get)(triples[:, 0:1])

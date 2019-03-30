@@ -50,7 +50,7 @@ def create_triple_mappings(triples: np.ndarray, are_triples_unique=True) -> Dict
 def map_triples_elements_to_ids(triples: np.ndarray,
                                 entity_to_id: Optional[Dict[int, str]] = None,
                                 rel_to_id: Optional[Dict[int, str]] = None) -> np.ndarray:
-    """Mapp entites and relations to predefined ids."""
+    """Map entities and relations to predefined ids."""
 
     subject_column = np.vectorize(entity_to_id.get)(triples[:, 0:1])
     relation_column = np.vectorize(rel_to_id.get)(triples[:, 1:2])
@@ -61,21 +61,34 @@ def map_triples_elements_to_ids(triples: np.ndarray,
     # Note: Unique changes the order of the triples
     return np.unique(ar=triples_of_ids, axis=0), entity_to_id, rel_to_id
 
-def get_unique_entity_pairs(triples, return_indices=False):
-    """
-    Extract all unique entity pairs from the triples.
-    """
+def get_unique_entity_pairs(triples, return_indices=False) -> np.array:
+    """Extract all unique entity pairs from the triples."""
 
     subjects = triples[:, 0:1]
     objects = triples[:, 2:3]
 
     entity_pairs = np.concatenate([subjects, objects], axis=1)
 
+    return get_unique_pairs(pairs=entity_pairs, return_indices=return_indices)
+
+def get_unique_subject_relation_pairs(triples, return_indices=False) -> np.array:
+    """Extract all unique subject relation pairs from the triples."""
+
+    subjects = triples[:, 0:1]
+    relations = triples[:, 1:2]
+
+    subject_relation_pairs = np.concatenate([subjects, relations], axis=1)
+
+    return get_unique_pairs(pairs=subject_relation_pairs, return_indices=return_indices)
+
+def get_unique_pairs(pairs, return_indices=False) -> np.array:
+    """Extract unique pairs."""
+
     # idx: Indices in triples of unique pairs
-    _, idx = np.unique(entity_pairs, return_index=True, axis=0)
+    _, idx = np.unique(pairs, return_index=True, axis=0)
     sorted_indices = np.sort(idx)
     # uniquoe pairs where original order of triples is preserved
-    unique_pairs = entity_pairs[sorted_indices]
+    unique_pairs = pairs[sorted_indices]
 
     if return_indices:
         return unique_pairs, sorted_indices

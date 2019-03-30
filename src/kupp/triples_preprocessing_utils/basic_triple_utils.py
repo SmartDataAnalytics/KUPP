@@ -64,8 +64,7 @@ def map_triples_elements_to_ids(triples: np.ndarray,
 def get_unique_entity_pairs(triples, return_indices=False) -> np.array:
     """Extract all unique entity pairs from the triples."""
 
-    subjects = triples[:, 0:1]
-    objects = triples[:, 2:3]
+    subjects, _, objects = slice_triples(triples)
 
     entity_pairs = np.concatenate([subjects, objects], axis=1)
 
@@ -74,8 +73,7 @@ def get_unique_entity_pairs(triples, return_indices=False) -> np.array:
 def get_unique_subject_relation_pairs(triples, return_indices=False) -> np.array:
     """Extract all unique subject relation pairs from the triples."""
 
-    subjects = triples[:, 0:1]
-    relations = triples[:, 1:2]
+    subjects, relations, _ = slice_triples(triples)
 
     subject_relation_pairs = np.concatenate([subjects, relations], axis=1)
 
@@ -93,3 +91,12 @@ def get_unique_pairs(pairs, return_indices=False) -> np.array:
     if return_indices:
         return unique_pairs, sorted_indices
     return unique_pairs
+
+def slice_triples(triples):
+    """Get the heads, relations, and tails from a matrix of triples."""
+
+    heads = triples[:, 0:1]
+    relations = triples[:, 1:2]
+    triples = triples[:, 2:3]
+
+    return heads, relations, triples

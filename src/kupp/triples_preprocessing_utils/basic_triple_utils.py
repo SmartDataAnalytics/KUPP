@@ -17,7 +17,7 @@ def load_triples(path):
     return triples
 
 
-def create_entity_and_relation_mappings(triples: np.ndarray) -> Tuple[Dict[str, int], Dict[str, int]]:
+def create_entity_and_relation_mappings(triples: np.array) -> Tuple[Dict[str, int], Dict[str, int]]:
     """Map entities and relations to ids."""
     entities = np.unique(np.ndarray.flatten(np.concatenate([triples[:, 0:1], triples[:, 2:3]])))
     relations = np.unique(np.ndarray.flatten(triples[:, 1:2]).tolist())
@@ -34,7 +34,7 @@ def create_entity_and_relation_mappings(triples: np.ndarray) -> Tuple[Dict[str, 
 
     return entity_to_id, rel_to_id
 
-def create_triple_mappings(triples: np.ndarray, are_triples_unique=True) -> Dict[tuple, int]:
+def create_triple_mappings(triples: np.array, are_triples_unique=True) -> Dict[tuple, int]:
     """Create mappings for triples."""
 
     if not are_triples_unique:
@@ -47,7 +47,7 @@ def create_triple_mappings(triples: np.ndarray, are_triples_unique=True) -> Dict
 
     return triples_to_id
 
-def map_triples_elements_to_ids(triples: np.ndarray,
+def map_triples_elements_to_ids(triples: np.array,
                                 entity_to_id: Optional[Dict[int, str]] = None,
                                 rel_to_id: Optional[Dict[int, str]] = None) -> np.ndarray:
     """Map entities and relations to predefined ids."""

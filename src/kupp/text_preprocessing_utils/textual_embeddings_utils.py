@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+"""Utils to process and embed text passages."""
+
 import multiprocessing
 from multiprocessing import Pool
 
@@ -8,18 +12,17 @@ from typing import Dict
 nlp = spacy.load('en')
 
 
-def _extract_sentences(descriptions) -> list:
+def _extract_sentences(descriptions: np.array) -> list:
     """Extract first n sentence of description."""
-    procssed_descriptions = []
+    processed_descriptions = []
 
     for description in descriptions:
-        # print(descriptions)
-        # print(description)
-
+        # Remove quotations marks from the beginning and the end
         if description.startswith('"') and description.endswith('"'):
             description = description[1:-1]
 
         sentences = []
+        # doc is a container
         doc = nlp(str(description))
         for i, sent in enumerate(doc.sents):
             sentences.append(sent.text)
@@ -27,9 +30,9 @@ def _extract_sentences(descriptions) -> list:
                 break
 
         sentences = " ".join(sentences)
-        procssed_descriptions.append(sentences)
+        processed_descriptions.append(sentences)
 
-    return procssed_descriptions
+    return processed_descriptions
 
 
 def extract_first_n_sentences(entity_to_desc: Dict[str, str],
@@ -40,12 +43,12 @@ def extract_first_n_sentences(entity_to_desc: Dict[str, str],
     MAX_NUM_SENTENCES = max_num_sentences
 
     entities = list(entity_to_desc.keys())
-    desciptions = list(entity_to_desc.values())
-    description_chunks = np.array_split(desciptions, num_processes)
+    descriptions = list(entity_to_desc.values())
+    description_chunks = np.array_split(descriptions, num_processes)
 
     with Pool(num_processes) as p:
         # Order of results is same as order description_chunks
-        # results is a list of lists where each sublist represent the resul of a process
+        # results is a list of lists where each sublist represent the result of a process
         results = p.map(_extract_sentences, description_chunks)
 
     processed_decs = []
@@ -57,3 +60,7 @@ def extract_first_n_sentences(entity_to_desc: Dict[str, str],
 
     return entity_to_desc
 
+
+def embedd_texts(texts:list) -> np.array:
+    """"""
+    pass

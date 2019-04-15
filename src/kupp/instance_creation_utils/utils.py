@@ -52,8 +52,8 @@ def create_multi_label_instances(unique_pairs: np.array,
 
     for unique_pair in unique_pairs:
         # Step 1: Get all corresponding elements of pair
-        indicies = np.where((pairs == unique_pair).all(-1))
-        all_corresponding_elements_of_pair = np.array(np.sort(elements[indicies]).tolist(), dtype=np.int)
+        indices = np.where((pairs == unique_pair).all(-1))
+        all_corresponding_elements_of_pair = np.array(np.sort(elements[indices]).tolist(), dtype=np.int)
         # Step 2: Create hot encoding labels
         multi_label = np.zeros(num_elements)
         np.put(multi_label, all_corresponding_elements_of_pair, np.ones(len(all_corresponding_elements_of_pair)))

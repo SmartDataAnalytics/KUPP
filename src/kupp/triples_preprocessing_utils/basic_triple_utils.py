@@ -6,13 +6,13 @@ from typing import Dict, Optional, Tuple
 import numpy as np
 
 
-def load_triples(path):
-    """Load triples saved as tab separated values and save it as a NumPy array."""
+def load_triples(path, delimiter='\t'):
+    """Load triples saved as tab separated values."""
     triples = np.loadtxt(
         fname=path,
         dtype=str,
         comments='@Comment@ Subject Predicate Object',
-        delimiter='\t',
+        delimiter=delimiter,
     )
     return triples
 

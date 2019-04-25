@@ -2,7 +2,7 @@
 
 """Constants use throughout the package."""
 
-VERSION = '0.0.1'
+VERSION = '0.0.2-dev'
 
 UNIVERSAL_SENTENCE_ENCODER = 'universal_sentence_encoder'
 PRETRAINED_TEXT_ENCODERS = {

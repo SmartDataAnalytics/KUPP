@@ -1,6 +1,6 @@
-KEEN-Preprocessor
-=================
-A Python package for preprocessing triples of a knowledge graph.
+KUPP
+====
+KUPP (KEEN Universe PreProcessor) is a Python package for preprocessing a knowledge graph.
 
 Installation |pypi_version| |python_versions| |pypi_license|
 ------------------------------------------------------------

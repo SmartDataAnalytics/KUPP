@@ -34,6 +34,7 @@ def create_entity_and_relation_mappings(triples: np.array) -> Tuple[Dict[str, in
 
     return entity_to_id, rel_to_id
 
+
 def create_triple_mappings(triples: np.array, are_triples_unique=True) -> Dict[tuple, int]:
     """Create mappings for triples."""
 
@@ -46,6 +47,7 @@ def create_triple_mappings(triples: np.array, are_triples_unique=True) -> Dict[t
     }
 
     return triples_to_id
+
 
 def map_triples_elements_to_ids(triples: np.array,
                                 entity_to_id: Optional[Dict[int, str]] = None,
@@ -61,6 +63,7 @@ def map_triples_elements_to_ids(triples: np.array,
     # Note: Unique changes the order of the triples
     return np.unique(ar=triples_of_ids, axis=0), entity_to_id, rel_to_id
 
+
 def get_unique_entity_pairs(triples, return_indices=False) -> np.array:
     """Extract all unique entity pairs from the triples."""
 
@@ -70,6 +73,7 @@ def get_unique_entity_pairs(triples, return_indices=False) -> np.array:
 
     return get_unique_pairs(pairs=entity_pairs, return_indices=return_indices)
 
+
 def get_unique_subject_relation_pairs(triples, return_indices=False) -> np.array:
     """Extract all unique subject relation pairs from the triples."""
 
@@ -78,6 +82,7 @@ def get_unique_subject_relation_pairs(triples, return_indices=False) -> np.array
     subject_relation_pairs = np.concatenate([subjects, relations], axis=1)
 
     return get_unique_pairs(pairs=subject_relation_pairs, return_indices=return_indices)
+
 
 def get_unique_pairs(pairs, return_indices=False) -> np.array:
     """Extract unique pairs."""
@@ -91,6 +96,7 @@ def get_unique_pairs(pairs, return_indices=False) -> np.array:
     if return_indices:
         return unique_pairs, sorted_indices
     return unique_pairs
+
 
 def slice_triples(triples):
     """Get the heads, relations, and tails from a matrix of triples."""

@@ -1,4 +1,3 @@
 KEEN-Preprocessor
 =================
-
-A Python package for preprocessing triples of a knowledge graph
+A Python package for preprocessing triples of a knowledge graph.

@@ -3,7 +3,7 @@
 import numpy as np
 from typing import Dict
 
-from src.kupp.triples_preprocessing_utils.basic_triple_utils import slice_triples
+from kupp.triples_preprocessing_utils.basic_triple_utils import slice_triples
 
 
 def create_multi_label_relation_instances(unique_entity_pairs: np.array,

@@ -6,7 +6,7 @@ from typing import Dict, Optional, Tuple
 import numpy as np
 
 
-def load_triples(path, delimiter='\t'):
+def load_triples(path, delimiter='\t') -> np.array:
     """Load triples saved as tab separated values."""
     triples = np.loadtxt(
         fname=path,
@@ -50,8 +50,8 @@ def create_triple_mappings(triples: np.array, are_triples_unique=True) -> Dict[t
 
 
 def map_triples_elements_to_ids(triples: np.array,
-                                entity_to_id: Optional[Dict[int, str]] = None,
-                                rel_to_id: Optional[Dict[int, str]] = None) -> np.ndarray:
+                                entity_to_id: Optional[Dict[int, str]],
+                                rel_to_id: Optional[Dict[int, str]]) -> np.ndarray:
     """Map entities and relations to predefined ids."""
 
     subject_column = np.vectorize(entity_to_id.get)(triples[:, 0:1])
@@ -61,7 +61,7 @@ def map_triples_elements_to_ids(triples: np.array,
 
     triples_of_ids = np.array(triples_of_ids, dtype=np.long)
     # Note: Unique changes the order of the triples
-    return np.unique(ar=triples_of_ids, axis=0), entity_to_id, rel_to_id
+    return np.unique(ar=triples_of_ids, axis=0)
 
 
 def get_unique_entity_pairs(triples, return_indices=False) -> np.array:

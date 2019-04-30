@@ -7,7 +7,7 @@ from typing import Dict
 import logging
 log = logging.getLogger(__name__)
 
-def create_matix_of_literals(numeric_triples: np.array, entity_to_id: Dict) -> np.array:
+def create_matix_of_literals(numeric_triples: np.array, entity_to_id: Dict) -> np.ndarray:
     """Create matrix of literals where each row corresponds to an entity and each column to a literal."""
     data_rel_to_id : Dict[str, int] = {
         value: key
